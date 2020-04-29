@@ -12,17 +12,21 @@ This was created so DocTest C++ XML can be ingested by
 - testsuite element
     - `id` attribute defaults to index of doctest testsuite element
     - `package` - attribute defaults to doctest binary attribute with path 
-    removed (note that this is not used by Jenkins JUnit)
+    removed (note that this is not used by Jenkins xUnit/JUnit)
     - `name` attribute **must be unique**, if doctest testsuite name is missing,
     it will default to index of testsuite element plus first testcase filename 
     with path and file extension removed, e.g., index of `1` and filename of 
     `/path/to/bar.cpp` will become `1_bar`
     - `hostname` attribute defaults to `N/A`
-    - `timestamp` attribute defaults to date/time doctest transform occurred
-    - `errors` attribute defaults to zero
-    - `failures` attribute is the count of testcases that have failures
+    - `timestamp` attribute defaults to date/time doctest transform occurred 
+    (note that this is not used by Jenkins xUnit/JUnit)
+    - `errors` attribute defaults to zero (note that this is not used by 
+    Jenkins xUnit/JUnit)
+    - `failures` attribute is the count of testcases that have failures (note 
+    that this is not used by Jenkins xUnit/JUnit)
     - `time` attribute is the execution duration for a testcase truncated
-    to 3 decimal places (this fixes Jenkins xUnit issue: https://issues.jenkins-ci.org/browse/JENKINS-52152)
+    to 3 decimal places (this fixes Jenkins xUnit issue: 
+    https://issues.jenkins-ci.org/browse/JENKINS-52152)
 - testcase element
     - `classname` attribute defaults to doctest binary attribute with path 
     remove, followed by a period, and then filename with path and file 
@@ -30,7 +34,8 @@ This was created so DocTest C++ XML can be ingested by
     `path/to/bar.cpp` becomes `foo.bar` (this fixes Jenkins JUnit issue:
     https://stackoverflow.com/questions/49852378/junit-plugin-not-showing-results-from-all-tests-in-jenkins)
     - `time` attribute is the sum of execution duration for testcases truncated
-    to 3 decimal places (this fixes Jenkins xUnit issue: https://issues.jenkins-ci.org/browse/JENKINS-52152)
+    to 3 decimal places (this fixes Jenkins xUnit issue: 
+    https://issues.jenkins-ci.org/browse/JENKINS-52152)
     - `failures` element is added if one or more failures occur, the`type` 
     attribute is left blank, `message` attribute contains OverallResultsAsserts 
     info, and `text` body will contain contents of failures and errors formatted
@@ -80,7 +85,7 @@ Error occurs on the use of the user stylesheet: Error to convert the input XML
 document," check if doctest xml is valid by running a linter, e.g.,
 `xmllint --noout doctest.xml`.  Tip: use sed to filter out 
 non-printable chars like control symbols, e.g., 
-`${test_binary} -s -d --reporters=xml | s/[[:cntrl:]]//g > doctest.xml`.
+`${test_binary} -s -d --reporters=xml | sed s/[[:cntrl:]]//g > doctest.xml`.
 
 ## Testing
 
